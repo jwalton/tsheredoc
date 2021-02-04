@@ -1,0 +1,75 @@
+{
+  "name": "tsheredoc",
+  "version": "v1.0.0",
+  "description": "Heredoc for ES6 with typescript support.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "test": "npm run build && npm run lint && npm run test:unittest",
+    "build": "tsc",
+    "clean": "rm -rf dist types coverage",
+    "test:unittest": "tsc -p test && nyc mocha 'test/**/*.@(ts|tsx|js|jsx)'",
+    "precommit:test": "lint-staged && npm run precommit:unittest",
+    "precommit:unittest": "tsc -p test && mocha --reporter progress 'test/**/*.@(ts|tsx|js|jsx)'",
+    "lint": "npm run lint:source && npm run lint:tests",
+    "lint:source": "eslint --ext .ts --ext .tsx src",
+    "lint:tests": "eslint --ext .ts --ext .tsx test",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build && npm test",
+    "semantic-release": "semantic-release"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --ext ts --ext tsx"
+    ],
+    "test/**/*.ts": [
+      "eslint --ext ts --ext tsx"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwalton/tsheredoc.git"
+  },
+  "keywords": [
+    "heredoc"
+  ],
+  "author": {
+    "name": "Jason Walton",
+    "email": "dev@lucid.thedreaming.org",
+    "url": "https://www.thedreaming.org"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/exegesis-js/jwalton/tsheredoc/issues"
+  },
+  "homepage": "https://github.com/jwalton/tsheredoc#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^12.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
+    "chai": "^4.3.0",
+    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.3",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
+    "semantic-release": "^17.3.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && npm run precommit:test"
+    }
+  }
+}
