@@ -21,6 +21,36 @@ describe('tests', function () {
         expect(result).to.equal('test\ntest\n  test\n');
     });
 
+    it('should handle empty lines (template string)', function () {
+        const result = heredoc`
+            test
+            test
+
+              test
+        `;
+        expect(result).to.equal('test\ntest\n\n  test\n');
+    });
+
+    it('should handle empty lines (string)', function () {
+        const result = heredoc(`
+            test
+            test
+
+              test
+        `);
+        expect(result).to.equal('test\ntest\n\n  test\n');
+    });
+
+    it('should handle empty input (template string)', function () {
+        const result = heredoc``;
+        expect(result).to.equal('');
+    });
+
+    it('should handle empty input (string)', function () {
+        const result = heredoc(``);
+        expect(result).to.equal('');
+    });
+
     it('should correctly render a line with no newlines (template string)', function () {
         const result = heredoc`test`;
         expect(result).to.equal('test');
@@ -50,10 +80,9 @@ describe('tests', function () {
     it('should correctly render template strings with interpolation', function () {
         const result = heredoc`
             ${0}
-            ${"test"}
-            ${"  bar"}
+            ${'test'}
+            ${'  bar'}
         `;
         expect(result).to.equal('0\ntest\n  bar\n');
     });
-
 });

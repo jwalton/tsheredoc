@@ -10,8 +10,9 @@ function stringToHeredoc(value: string) {
         addNewline = true;
     }
 
-    const minIndentLength = Math.min(...lines.map((line) => line.search(/[^ ]/)));
-    return lines.map((line) => line.slice(minIndentLength)).join('\n') + (addNewline ? "\n" : "");
+    const indents = lines.map((line) => line.search(/[^ ]/)).filter((n) => n >= 0);
+    const minIndentLength = Math.min(...indents);
+    return lines.map((line) => line.slice(minIndentLength)).join('\n') + (addNewline ? '\n' : '');
 }
 
 function renderStringTemplate(strings: TemplateStringsArray, ...values: string[]): string {
