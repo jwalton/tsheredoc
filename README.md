@@ -26,6 +26,6 @@ import heredoc from 'tsheredoc';
 const usage = heredoc(`
    Usage: mycommand [arguments]
    Does cool stuff.
-`;
+`);
 // Same as above
 ```
