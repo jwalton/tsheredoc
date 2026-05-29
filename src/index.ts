@@ -15,7 +15,7 @@ function stringToHeredoc(value: string) {
     return lines.map((line) => line.slice(minIndentLength)).join('\n') + (addNewline ? '\n' : '');
 }
 
-function renderStringTemplate(strings: TemplateStringsArray, ...values: string[]): string {
+function renderStringTemplate(strings: TemplateStringsArray, ...values: unknown[]): string {
     let result = '';
     for (let i = 0; i < strings.length; i++) {
         result += strings[i];
@@ -41,9 +41,12 @@ function renderStringTemplate(strings: TemplateStringsArray, ...values: string[]
  *         test
  *     `); // val2 == "test\ntest\n"
  */
-export default function heredoc(value: TemplateStringsArray, ...values: any[]): string;
+export default function heredoc(value: TemplateStringsArray, ...values: unknown[]): string;
 export default function heredoc(value: string): string;
-export default function heredoc(value: TemplateStringsArray | string, ...values: any[]): string {
+export default function heredoc(
+    value: TemplateStringsArray | string,
+    ...values: unknown[]
+): string {
     if (typeof value === 'string') {
         return stringToHeredoc(value);
     } else {

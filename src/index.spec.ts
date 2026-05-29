@@ -1,6 +1,6 @@
 import 'mocha';
 import { expect } from 'chai';
-import heredoc from '../src/index';
+import heredoc from './index.js';
 
 describe('tests', function () {
     it('should work (template string)', function () {
